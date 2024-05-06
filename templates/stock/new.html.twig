@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Stock{% endblock %}
+{% block section %}
+{{ form (f) }}
+{% endblock %}
+{% block body %}
+<!-- preloader area start -->
+	<div class="preloader" id="preloader">
+		<div class="loader loader-1">
+			<div class="loader-outter"></div>
+			<div class="loader-inner"></div>
+		</div>
+	</div>
+    <div class="mainmenu-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="navbar navbar-expand-lg navbar-light">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/logo.png" alt="">
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_menu"
+							aria-controls="main_menu" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse fixed-height" id="main_menu">
+							<ul class="navbar-nav ml-auto">
+								<li class="nav-item">
+									<a class="nav-link active" href="index.html">Home
+										<div class="mr-hover-effect"></div></a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="about.html">About
+										<div class="mr-hover-effect"></div></a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="investment.html">Investment
+										<div class="mr-hover-effect"></div></a>
+								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#blog-section" role="button"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Pages
+										<div class="mr-hover-effect"></div>
+									</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="team.html">Investors</a>
+										<a class="dropdown-item" href="faq.html">Faq</a>
+										<a class="dropdown-item" href="signin.html">Login</a>
+										<a class="dropdown-item" href="signup.html">Register</a>
+										<a class="dropdown-item" href="forgot-pass.html">Forgot Password</a>
+										<a class="dropdown-item" href="404.html">404</a>
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#blog-section" role="button"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Blog
+										<div class="mr-hover-effect"></div>
+									</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="blog.html">Blog Grid</a>
+										<a class="dropdown-item" href="blog-with-sidebar.html">Blog With Sidebar</a>
+										<a class="dropdown-item" href="blog-details.html">Blog Details</a>
+									</div>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="contact.html">Contact
+										<div class="mr-hover-effect"></div></a>
+								</li>
+							</ul>
+							<a href="signin.html" class="base-btn2"> Login</a>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="hero-area" id="hero-area">
+		 <div class="container">
+        <div class="row">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Create New Stock</h2>
+                </div>
+                <div class="card-body">
+                    {{ include('stock/_form.html.twig') }}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_stock_index') }}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

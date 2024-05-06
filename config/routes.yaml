@@ -1,3 +1,7 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /User
+    controller: 'App\Controller\UserController::index'
+app_demand_index:
+    path: /demand
+    controller: 'App\Controller\DemandController::index'
+    methods: [GET]

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Category Usage Statistics{% endblock %}
+
+{% block body %}
+    <!-- Hero Area Start -->
+    <div class="hero-area" id="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 align-self-center">
+                    <div class="left-content">
+                        <!-- Add any content you want to display in the left section -->
+                    </div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <div class="right-content">
+                    <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Category Usage Statistics</h2>
+        <canvas id="categoryChart"></canvas>
+    </div>
+
+                        <img src="assets/images/iso-hero.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Area End -->
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('categoryChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels|raw }},
+                datasets: [{
+                    label: 'Category Usage',
+                    data: {{ data|raw }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

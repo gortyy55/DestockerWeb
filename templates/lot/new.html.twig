@@ -1,0 +1,19 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}New lot{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <div class="container text-center"> <!-- Adding a container with text-center class -->
+        <h1>Create new lot</h1>
+        {{ include('lot/_form.html.twig') }}
+
+        <a href="{{ path('app_lot_index') }}">back to list</a>
+    </div>
+{% endblock %}
+

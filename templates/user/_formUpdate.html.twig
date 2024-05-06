@@ -1,0 +1,55 @@
+{% extends 'baseUser.html.twig' %}
+
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+{#{{ form_end(form) }}#}
+
+{% block body %}
+    <h2 class="title-1 m-b-25">Update</h2>
+
+    {{ form_start(form, {'attr': {'class': 'form','novalidate': 'novalidate'}}) }}
+    <div class="form-group">
+        {{ form_label(form.email, 'Email') }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.role, 'Role') }}
+        {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.role) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.password, 'Password') }}
+        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.password) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.firstname, 'Firstname') }}
+        {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.firstname) }}
+    </div>
+     <div class="form-group">
+        {{ form_label(form.lastname, 'Lastname') }}
+        {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.lastname) }}
+    </div>
+     <div class="form-group">
+        {{ form_label(form.address, 'Address') }}
+        {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.address) }}
+    </div>
+       <div class="form-group">
+        {{ form_label(form.telephone, 'Telephone') }}
+        {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.telephone) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    
+    {{ form_end(form) }}
+    <a href="{{ path('app_user_dashboard') }}">back to list</a>
+{% endblock %}
+{% block overview %}
+{% endblock %}
+{% block stuff %}
+{% endblock %}

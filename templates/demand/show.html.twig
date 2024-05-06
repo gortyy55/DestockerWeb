@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demand{% endblock %}
+
+{% block body %}
+    <h1>Demand</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Iddemand: {{ demand.iddemand }}</h5>
+            <p class="card-text">Description: {{ demand.description }}</p>
+            <!-- Donate button -->
+            <a href="{{ path('app_dons_new', {'iddemand': demand.iddemand}) }}" class="btn btn-primary">Donate</a>
+            {{ include('demand/_delete_form.html.twig') }}
+
+        </div>
+    </div>
+
+    <!-- Back to List link -->
+    <a href="{{ path('app_demand_index') }}" class="btn btn-secondary">Back to List</a>
+{% endblock %}

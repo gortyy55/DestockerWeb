@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Donation{% endblock %}
+
+{% block body %}
+    <h1>Create a New Donation</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.amount) }}
+    {{ form_row(form.iddemand, {'value': iddemand}) }} {# Add a hidden input field for iddemand #}
+    {{ form_row(form.submit) }}
+{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demand index{% endblock %}
+
+{% block body %}
+    <h1>Demand index</h1>
+
+    <!-- Search form -->
+    <form action="{{ path('app_demand_index') }}" method="get" class="form-inline mb-3">
+        <input type="text" class="form-control mr-sm-2" name="search" placeholder="Search" value="{{ app.request.query.get('search') }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Sort dropdown -->
+    <form action="{{ path('app_demand_index') }}" method="get" class="form-inline mb-3">
+        <select name="sort" class="form-control mr-sm-2" onchange="this.form.submit()">
+            <option value="">Sort by...</option>
+            <option value="asc" {% if app.request.query.get('sort') == 'asc' %}selected{% endif %}>Ascending</option>
+            <option value="desc" {% if app.request.query.get('sort') == 'desc' %}selected{% endif %}>Descending</option>
+        </select>
+    </form>
+
+    <div class="row">
+        {% for demand in demands %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Iddemand: {{ demand.iddemand }}</h5>
+                        <p class="card-text">Description: {{ demand.description }}</p>
+                        <a href="{{ path('app_dons_new', {'iddemand': demand.iddemand}) }}" class="btn btn-primary">Donate</a>
+                        <a href="{{ path('app_demand_show', {'iddemand': demand.iddemand}) }}" class="btn btn-primary">Show</a>
+                        <a href="{{ path('app_demand_edit', {'iddemand': demand.iddemand}) }}" class="btn btn-warning">Edit</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>No records found</p>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('app_demand_new') }}" class="btn btn-success">Create new</a>
+{% endblock %}

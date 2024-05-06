@@ -1,0 +1,24 @@
+{% for result in results %}
+    <div class="col-lg-4 col-md-6">
+        <!-- Render each filtered stock item here -->
+        <div class="single-counter" style="border-radius: 20px">
+            <div class="icon">
+                <i class="flaticon-sticker"></i>
+            </div>
+            <div class="content">
+                <h6 class="sub-title">{{ result.produitname }}</h6>
+                <p>{{ result.quantite }}</p>
+                <p>{{ result.mail }}</p>
+                <p>{{ result.getIdCat().getCategoryName() }}</p>
+                <p>your rate:{{ result.averageRating }}</p> 
+                <a href="{{ path('app_stock_show', {'id': result.id}) }}" class="btn btn-primary">Show</a>
+                <a href="{{ path('app_stock_edit', {'id': result.id}) }}" class="btn btn-secondary">Edit</a>
+                <a href="{{ path('rate_app', {'id': result.id}) }}" class="btn btn-primary">Rate</a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="col-lg-12">
+        <p>No records found.</p>
+    </div>
+{% endfor %}

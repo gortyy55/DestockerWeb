@@ -1,0 +1,25 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div>
+    {{form_label(form.produitname,'produit name:')}}
+    {{ form_widget(form.produitname,{'attr':{'placeholder':'prdouit name','class':'form-control'}}) }}
+    <span style="color: red;">{{ form_errors(form.produitname)}}</span>
+    </div>
+    <br>
+    <div>
+    {{form_label(form.produitname,' quantite:')}}
+    {{ form_widget(form.quantite,{'attr':{'placeholder':'0000','class':'form-control'}}) }}
+    <span style="color: red;">{{ form_errors(form.quantite)}}</span>
+    </div>
+    <br>
+    <div>
+    {{form_label(form.produitname,' vander mail:')}}
+    {{ form_widget(form.mail,{'attr':{'placeholder':'vander@gmail.com','class':'form-control'}}) }}
+    <span style="color: red;">{{ form_errors(form.mail)}}</span>
+    </div>
+    <br>
+    <div>
+    {{form_label(form.produitname,'category:')}}
+    {{ form_widget(form.id_cat) }}
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

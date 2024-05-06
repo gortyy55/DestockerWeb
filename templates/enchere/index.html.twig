@@ -1,0 +1,50 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Enchere index{% endblock %}
+
+{% block body %}
+
+<div class="row mb-3 justify-content-center">
+
+                    <div class="col-md-6 text-center">
+                        <form action="{{ path('app_enchere_index') }}" method="get" class="form-inline">
+                            <div class="form-group mr-2">
+                                <input type="text" id="searchInput" name="q" placeholder="Rechercher par nom" class="form-control" value="{{ app.request.query.get('q') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </form>
+                    </div>
+                </div>
+
+    <div class="container text-center"> <!-- Adding a container with text-center class -->
+        <h1>Enchere index</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for enchere in encheres %}
+                <tr>
+                    <td>{{ enchere.id }}</td>
+                    <td>{{ enchere.nom }}</td>
+                    <td>
+                        <a href="{{ path('app_enchere_show', {'id': enchere.id}) }}">show</a>
+                        <a href="{{ path('app_enchere_edit', {'id': enchere.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_enchere_new') }}">Create new</a>
+    </div>
+{% endblock %}

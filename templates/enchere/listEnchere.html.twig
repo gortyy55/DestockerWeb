@@ -1,0 +1,67 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+    <div class="container text-center">
+        <h1>Liste des Enchères disponibles</h1>
+
+        <div class="row">
+            {% for enchere in encheres %}
+                {% set maintenant = 'now'|date('Y-m-d H:i:s') %}
+                <script>
+                    console.log("Maintenant : {{ maintenant }}");
+                </script>
+                {% if enchere.dateduree|date('Y-m-d H:i:s') > maintenant|date('Y-m-d H:i:s') %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ enchere.nom }}</h5>
+
+                            {% if lotsParEnchere[enchere.id] is not empty %}
+                                <h6 class="card-subtitle mb-2 text-muted">Lots:</h6>
+                                <ul class="list-group list-group-flush">
+                                    {% for lot in lotsParEnchere[enchere.id] %}
+                                        <li class="list-group-item">{{ lot.identifient }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Aucun lot associé</p>
+                            {% endif %}
+                            {% if produitsParEnchere[enchere.id] is not empty %}
+                                <h6 class="card-subtitle mb-2 text-muted">Produits:</h6>
+                                <ul class="list-group list-group-flush">
+                                    {% for lotId, produits in produitsParEnchere[enchere.id] %}
+                                        {% for produit in produits %}
+                                            <li class="list-group-item">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span>Nom: {{ produit.nom }}</span>
+                                                    <span>Prix: {{ produit.prix }}</span>
+                                                </div>
+                                                <form action="{{ path('app_augmenter_prix_actuel', {'produit_id': produit.id}) }}" method="post">
+                                                    <input type="number" name="nouveau_prix_actuel" value="{{ produit.prixActuel }}">
+                                                    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                                </form>
+                                            </li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Aucun produit associé</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

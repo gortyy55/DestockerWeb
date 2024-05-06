@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des produit</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des produits</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du produit</th>
+                <th>quantite</th>
+                <th>mail</th>
+                <th>Category</th>
+                <th>rate average</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.produitname }}</td>
+                    <td>{{ stock.quantite }}</td>
+                    <td>{{ stock.mail }}</td>
+                    <td>{{ stock.getIdCat().getCategoryName() }}</td>
+                    <td>your rate:{{ stock.averageRating }}</td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

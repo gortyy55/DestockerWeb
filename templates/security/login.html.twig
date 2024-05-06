@@ -1,0 +1,45 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+    <a href="{{ path('app_user_new') }}">Sign up</a>
+    <div class="h-captcha" data-sitekey="60b1e36c-0ec9-4c96-9b18-f541a1de0b74"></div>
+		<button class="btn btn-primary" type ="submit" onclick="submitForm()">Save</button>
+</form>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<script>
+    function submitForm(){
+    var response = grecaptcha.getResponse();
+    if (response.length === 0){
+    alert ('veuillez résoudre le reCAPTCHA.');
+    return false;
+    }else {
+    document.getElementById('app_login').submit();
+    }
+}
+{% endblock %}

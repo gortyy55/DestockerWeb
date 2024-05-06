@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="preloader" id="preloader">
+    <div class="loader loader-1">
+        <div class="loader-outter"></div>
+        <div class="loader-inner"></div>
+    </div>
+</div>
+
+<!--Main-Menu Area Start-->
+
+<!-- Breadcrumb Area Start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="title">
+                    Investment
+                </h4>
+                <ul class="breadcrumb-list">
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-chevron-right"></i> </span>
+                    </li>
+                    <li>
+                        <a href="feature.html">Investment</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- Pricing Area Start -->
+<section class="pricing2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="section-heading">
+                    <h2 class="title">
+                        Investment Plans
+                    </h2>
+                    <p class="text">
+                        We use the latest technologies and tools in order to create a better code that not only works great, but it is easy easy to work with too.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 pricing-tab">
+                <div class="tab-menu">
+                    <ul class="nav" id="my-tab" role="tablist">
+                        <li class="nav-item">
+                            <a href="{{ path('display_cart') }}" class="cart-button">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge badge-pill badge-info" id="cartItemCount">{{ numberOfItems }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
+                        <div class="row justify-content-center">
+                            {% for enchere in enchereData %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="price-box basic">
+                                    <div class="price-title">
+                                        <h3 class="heading-title">{{ enchere.produit }}</h3>
+                                    </div>
+                                    <div class="price-rate">
+                                        <div class="center-align-content">
+                                            <p class="price">{{ enchere.prixactuel }}</p>
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                    <div class="service-feature">
+                                        <ul class="service-feature-list">
+                                            <li>
+                                                <p>Stock: {{ enchere.stock }}</p>
+                                            </li>
+                                            <!-- Add more features if needed -->
+                                        </ul>
+                                    </div>
+                                    <div class="buy-btn-wrapper">
+                                        <button class="base-btn1 add-to-cart" data-id="{{ enchere.id }}">ajouter panier</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="base-btn1 confirm-cart">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const confirmButton = document.querySelector('.confirm-cart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const price = parseFloat(this.closest('.price-box').querySelector('.price').textContent);
+            
+            // Store the ID in local storage
+            let cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+            cartItems.push(id);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Store the price in local storage
+            let cartPrices = localStorage.getItem('cartPrices') ? JSON.parse(localStorage.getItem('cartPrices')) : [];
+            cartPrices.push(price);
+            localStorage.setItem('cartPrices', JSON.stringify(cartPrices));
+
+            updateCartItemCount();
+        });
+    });
+
+    confirmButton.addEventListener('click', function() {
+    const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+    const cartPrices = localStorage.getItem('cartPrices') ? JSON.parse(localStorage.getItem('cartPrices')) : [];
+    
+    if (cartItems.length > 0 && cartPrices.length > 0 && cartItems.length === cartPrices.length) {
+        // Calculate total price
+        const totalPrice = cartPrices.reduce((acc, price) => acc + price, 0);
+
+        fetch("{{ path('add_cart') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ids: cartItems,
+                totalPrice: totalPrice
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Store the id_panier in local storage
+            localStorage.setItem('id_panier', data.id_panier);
+            // Clear the cart items and prices from local storage
+            localStorage.removeItem('cartItems');
+            localStorage.removeItem('cartPrices');
+            // Redirect to the display cart page
+            window.location.href = "{{ path('display_cart') }}?id_panier=" + data.id_panier;
+        })
+        .catch(error => console.error('Error:', error));
+        updateCartItemCount();
+    } else {
+        alert('Your cart is empty or there was an issue with the items in the cart!');
+    }
+});
+
+    function updateCartItemCount() {
+        const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+        document.getElementById('cartItemCount').textContent = cartItems.length;
+    }
+});
+
+
+</script>
+
+
+
+
+{% endblock %}
