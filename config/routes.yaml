@@ -1,3 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+produit_delete:
+    path: /facture/deleteAdmin/{id}
+    controller: App\Controller\FactureAdminController::delete
+    methods: ['DELETE', 'POST']
+    requirements:
+        id: \d+ # Match only numeric values for the id parameter
