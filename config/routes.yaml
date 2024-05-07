@@ -1,7 +1,11 @@
 index:
-    path: /User
-    controller: 'App\Controller\UserController::index'
+  path: /User
+  controller: 'App\Controller\UserController::index'
 app_demand_index:
-    path: /demand
-    controller: 'App\Controller\DemandController::index'
-    methods: [GET]
+  path: /demand
+  controller: 'App\Controller\DemandController::index'
+  methods: [GET]
+app_lot_edit:
+  path: /lot/{id}/edit
+  controller: App\Controller\LotController::edit
+  methods: ["GET", "POST"]

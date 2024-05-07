@@ -107,21 +107,29 @@ class LotController extends AbstractController
      * @Route("/{id}/edit", name="app_lot_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Lot $lot, EntityManagerInterface $entityManager): Response
+
     {
         $form = $this->createForm(LotType::class, $lot);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrez d'abord les modifications apportées au lot
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lot_index', [], Response::HTTP_SEE_OTHER);
+
+            // Redirigez vers la liste des lots
+            return $this->redirectToRoute('app_lot_index');
         }
 
-        return $this->renderForm('lot/edit.html.twig', [
-            'lot' => $lot,
+        return $this->render('lot/edit.html.twig', [
+            'lots' => $lot,
             'form' => $form,
         ]);
     }
+
+
+
+
 
     /**
      * @Route("/{id}", name="app_lot_delete", methods={"POST"})
